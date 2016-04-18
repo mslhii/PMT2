@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private final String smsMessage = "PMT";
 
     private ListView listView;
+    private FriendListViewAdapter mFriendAdapter;
     private ArrayList<String> dbList = new ArrayList<String>();
 
     @Override
@@ -37,9 +38,11 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         this.fetchContacts();
-        final ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, this.dbList);
+        //final ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, this.dbList);
         listView = (ListView)findViewById(R.id.listView1);
-        listView.setAdapter(listAdapter);
+        //listView.setAdapter(listAdapter);
+        mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
+        listView.setAdapter(mFriendAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -48,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                 final int pos = position;
 
-                alertDialogBuilder.setTitle("Are you sure?");
+                alertDialogBuilder.setTitle("Are you sure? BETA, to be removed from production");
                 alertDialogBuilder
                         .setMessage("Send this SMS?")
                         .setCancelable(false)
@@ -57,7 +60,7 @@ public class MainActivity extends ActionBarActivity {
                                 String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
                                 int splitPosition = item.indexOf("\n");
                                 String userNumber = item.substring(splitPosition);
-                                Toast.makeText(getApplicationContext(), "Checking in to " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Sent PMT to " + userNumber + "!", Toast.LENGTH_SHORT).show();
                                 MainActivity.this.sendSMS(userNumber);
                             }
                         })
@@ -85,9 +88,11 @@ public class MainActivity extends ActionBarActivity {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, this.smsMessage, null, null);
-            Toast.makeText(getApplicationContext(), "Sent Check-In", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Sent PMT", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),
+                    "Can't send a PMT because " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -121,7 +126,16 @@ public class MainActivity extends ActionBarActivity {
 
                 if (hasPhoneNumber > 0) {
                     // Query and loop for every phone number of the contact
-                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
+                    //Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
+                    Cursor phoneCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},
+
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " +
+                                    ContactsContract.CommonDataKinds.Phone.TYPE + " = " +
+                                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
+
+                            new String[]{contact_id},
+                            null);
                     while (phoneCursor.moveToNext()) {
                         number = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
                     }
@@ -130,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
 
                 if(!number.equals("")) {
                     combine = name + "\n" + number;
-                    Log.e("TAG", "Added to list: " + name + ", " + number);
+                    //Log.e("TAG", "Added to list: " + name + ", " + number);
                     this.dbList.add(combine);
                     number = "";
                     name = "";
