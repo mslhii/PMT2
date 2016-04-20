@@ -1,12 +1,16 @@
 package com.kritikalerror.pmt2;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.annotation.IntegerRes;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +30,7 @@ import java.util.Collections;
 
 public class MainActivity extends ActionBarActivity {
     public final static String KEY_EXTRA_CONTACT_ID = "KEY_EXTRA_CONTACT_ID";
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private final String smsMessage = "PMT";
 
     private ListView listView;
@@ -37,51 +42,102 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.fetchContacts();
-        //final ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, this.dbList);
-        listView = (ListView)findViewById(R.id.listView1);
-        //listView.setAdapter(listAdapter);
-        mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
-        listView.setAdapter(mFriendAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //this.fetchContacts();
+        boolean hasContacts = this.fetchContactsWrapper();
+        if(hasContacts) {
+            //final ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, this.dbList);
+            listView = (ListView) findViewById(R.id.listView1);
+            //listView.setAdapter(listAdapter);
+            mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
+            listView.setAdapter(mFriendAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> listView, View view,
-                                    int position, long id) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                final int pos = position;
+                @Override
+                public void onItemClick(AdapterView<?> listView, View view,
+                                        int position, long id) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    final int pos = position;
 
-                alertDialogBuilder.setTitle("Are you sure? BETA, to be removed from production");
-                alertDialogBuilder
-                        .setMessage("Send this SMS?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
-                                int splitPosition = item.indexOf("\n");
-                                String userNumber = item.substring(splitPosition);
-                                Toast.makeText(getApplicationContext(), "Sent PMT to " + userNumber + "!", Toast.LENGTH_SHORT).show();
-                                MainActivity.this.sendSMS(userNumber);
-                            }
-                        })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                    alertDialogBuilder.setTitle("Are you sure? BETA, to be removed from production");
+                    alertDialogBuilder
+                            .setMessage("Send this SMS?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
+                                    int splitPosition = item.indexOf("\n");
+                                    String userNumber = item.substring(splitPosition);
+                                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                                    MainActivity.this.sendSMS(userNumber);
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // Test only, do not use in production!
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+
+                    //                String item = (String) MainActivity.this.listView.getItemAtPosition(position);
+                    //                int splitPosition = item.indexOf("\n");
+                    //                String userNumber = item.substring(splitPosition);
+                    //                Toast.makeText(getApplicationContext(), "Checking in to " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                    //                MainActivity.this.sendSMS(userNumber);
+                }
+            });
+        }
+//        else
+//        {
+//            this.showOKAlertMessage("Cannot display contacts since you don't want me to read them!",
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Toast.makeText(getApplicationContext(),
+//                                    "Exiting...",
+//                                    Toast.LENGTH_LONG).show();
+//                            finish();
+//                        }
+//                    });
+//        }
+
+    }
+
+    private boolean fetchContactsWrapper() {
+        int hasReadContactsPermission = ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_CONTACTS);
+        if (hasReadContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS)) {
+                showOKAlertMessage("You need to allow access to Contacts",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{Manifest.permission.READ_CONTACTS},
+                                        REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
-
-                // Test only, do not use in production!
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-//                String item = (String) MainActivity.this.listView.getItemAtPosition(position);
-//                int splitPosition = item.indexOf("\n");
-//                String userNumber = item.substring(splitPosition);
-//                Toast.makeText(getApplicationContext(), "Checking in to " + userNumber + "!", Toast.LENGTH_SHORT).show();
-//                MainActivity.this.sendSMS(userNumber);
+                return false;
             }
-        });
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[] {Manifest.permission.READ_CONTACTS},
+                    REQUEST_CODE_ASK_PERMISSIONS);
+            return false;
+        }
+        this.fetchContacts();
+        return true;
+    }
 
+    private void showOKAlertMessage(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 
     public void sendSMS(String number){
