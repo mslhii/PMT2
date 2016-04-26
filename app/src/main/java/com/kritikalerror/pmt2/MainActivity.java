@@ -37,12 +37,9 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //this.fetchContacts();
         boolean hasContacts = this.fetchContactsWrapper();
         if(hasContacts) {
-            //final ArrayAdapter listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, this.dbList);
             listView = (ListView) findViewById(R.id.listView1);
-            //listView.setAdapter(listAdapter);
             mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
             listView.setAdapter(mFriendAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -84,20 +81,6 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
-//        else
-//        {
-//            this.showOKAlertMessage("Cannot display contacts since you don't want me to read them!",
-//                    new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Exiting...",
-//                                    Toast.LENGTH_LONG).show();
-//                            finish();
-//                        }
-//                    });
-//        }
-
     }
 
     private boolean fetchContactsWrapper() {
