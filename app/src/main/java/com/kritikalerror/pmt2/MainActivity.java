@@ -24,7 +24,6 @@ import java.util.Collections;
 
 
 public class MainActivity extends ActionBarActivity {
-    public final static String KEY_EXTRA_CONTACT_ID = "KEY_EXTRA_CONTACT_ID";
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private final String smsMessage = "PMT";
 
@@ -182,8 +181,7 @@ public class MainActivity extends ActionBarActivity {
 
                 if (hasPhoneNumber > 0) {
                     // Query and loop for every phone number of the contact
-                    //Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
-                    Cursor phoneCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    Cursor phoneCursor = getContentResolver().query(PhoneCONTENT_URI,
                             new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},
 
                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " +
@@ -200,7 +198,7 @@ public class MainActivity extends ActionBarActivity {
 
                 if(!number.equals("")) {
                     combine = name + "\n" + number;
-                    //Log.e("TAG", "Added to list: " + name + ", " + number);
+                    Log.v("TAG", "Added to list: " + name + ", " + number);
                     this.dbList.add(combine);
                     number = "";
                     name = "";
