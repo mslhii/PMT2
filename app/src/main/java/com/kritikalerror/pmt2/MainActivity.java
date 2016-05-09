@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
             listView = (ListView) findViewById(R.id.listView1);
             mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
             listView.setAdapter(mFriendAdapter);
+            listView.setFastScrollEnabled(true);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
