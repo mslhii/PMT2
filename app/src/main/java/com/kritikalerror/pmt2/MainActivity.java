@@ -36,6 +36,26 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setTitle("WARNING!");
+        alertDialogBuilder
+                .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click no")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        // Test only, do not use in production!
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
         boolean hasContacts = this.fetchContactsWrapper();
         if(hasContacts) {
             listView = (ListView) findViewById(R.id.listView1);
