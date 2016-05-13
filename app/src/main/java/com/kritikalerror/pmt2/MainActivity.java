@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity {
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
+                        dialog.cancel();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
