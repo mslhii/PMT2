@@ -39,16 +39,17 @@ public class MainActivity extends ActionBarActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilder.setTitle("WARNING!");
         alertDialogBuilder
-                .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click no")
+                .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click \"Get me outta here!\"")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Proceed!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Get me outta here!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
+                        finish();
                     }
                 });
 
