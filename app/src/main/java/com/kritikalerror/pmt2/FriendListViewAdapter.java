@@ -13,18 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
  * @author Michael H.
  */
-public class FriendListViewAdapter extends BaseAdapter {
+public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer {
 
     private static LayoutInflater mLayoutInflater;
     private ArrayList<String> mParseUsers;
+
+    // Member variables for section indexing
+    private String[] mSections;
+    HashMap<String, Integer> mMapIndex;
 
     private static final int[] colorPicker = {Color.parseColor("#9933CC"),
             Color.parseColor("#669900"),
@@ -102,6 +108,8 @@ public class FriendListViewAdapter extends BaseAdapter {
 
                 convertView = adView;
             }
+
+            mMapIndex.put("a", position);
         }
         // This is for all the other users
         else {
@@ -151,6 +159,20 @@ public class FriendListViewAdapter extends BaseAdapter {
 
     public static class ViewHolder {
         public TextView username;
+    }
+
+    public int getPositionForSection(int section) {
+        Log.d("section", "" + section);
+        return mMapIndex.get(mSections[section]);
+    }
+
+    public int getSectionForPosition(int position) {
+        Log.d("position", "" + position);
+        return 0;
+    }
+
+    public Object[] getSections() {
+        return mSections;
     }
 
 }
