@@ -17,8 +17,11 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author Michael H.
@@ -60,6 +63,25 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
         this.mParseUsers = parseUsers;
 
         this.mParseUsers.add(0, null);
+
+        this.mMapIndex = new LinkedHashMap<String, Integer>();
+
+        for (int x = 1; x < parseUsers.size(); x++) {
+            String firstChar = parseUsers.get(x).substring(0, 1);
+            mMapIndex.put(firstChar, x);
+        }
+
+        Set<String> sectionLetters = mMapIndex.keySet();
+
+        // create a list from the set to sort
+        ArrayList<String> sectionList = new ArrayList<String>(sectionLetters);
+
+        Log.d("sectionList", sectionList.toString());
+        Collections.sort(sectionList);
+
+        mSections = new String[sectionList.size()];
+
+        sectionList.toArray(mSections);
     }
 
     @Override
@@ -109,7 +131,7 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
                 convertView = adView;
             }
 
-            mMapIndex.put("a", position);
+            //mMapIndex.put("a", position);
         }
         // This is for all the other users
         else {
@@ -130,8 +152,11 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
             }
 
             holder.username.setText(friend.toUpperCase());
+            //String friendIndex = friend.toLowerCase();
+            //mMapIndex.put(friendIndex.substring(0, 1), position);
         }
 
+        //Log.e("MAP", "Map contains: " + mMapIndex.get("a"));
         return convertView;
     }
 
