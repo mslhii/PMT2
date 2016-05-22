@@ -152,8 +152,6 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
             }
 
             holder.username.setText(friend.toUpperCase());
-            //String friendIndex = friend.toLowerCase();
-            //mMapIndex.put(friendIndex.substring(0, 1), position);
         }
 
         //Log.e("MAP", "Map contains: " + mMapIndex.get("a"));
