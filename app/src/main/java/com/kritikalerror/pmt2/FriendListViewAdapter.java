@@ -154,7 +154,6 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
             holder.username.setText(friend.toUpperCase());
         }
 
-        //Log.e("MAP", "Map contains: " + mMapIndex.get("a"));
         return convertView;
     }
 
