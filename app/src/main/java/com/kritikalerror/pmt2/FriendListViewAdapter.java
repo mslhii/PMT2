@@ -130,8 +130,6 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
 
                 convertView = adView;
             }
-
-            //mMapIndex.put("a", position);
         }
         // This is for all the other users
         else {
