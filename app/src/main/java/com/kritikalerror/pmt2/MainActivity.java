@@ -98,12 +98,6 @@ public class MainActivity extends ActionBarActivity {
                     // Test only, do not use in production!
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-
-                    //                String item = (String) MainActivity.this.listView.getItemAtPosition(position);
-                    //                int splitPosition = item.indexOf("\n");
-                    //                String userNumber = item.substring(splitPosition);
-                    //                Toast.makeText(getApplicationContext(), "Checking in to " + userNumber + "!", Toast.LENGTH_SHORT).show();
-                    //                MainActivity.this.sendSMS(userNumber);
                 }
             });
         }
