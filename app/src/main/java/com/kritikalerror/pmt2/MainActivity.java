@@ -184,7 +184,7 @@ public class MainActivity extends ActionBarActivity {
         String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
 
         Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-        String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
+        //String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
         String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
 
         ContentResolver contentResolver = getContentResolver();
