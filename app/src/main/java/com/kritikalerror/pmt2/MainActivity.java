@@ -99,6 +99,7 @@ public class MainActivity extends ActionBarActivity {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
 
+
 //                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
 //                    int splitPosition = item.indexOf("\n");
 //                    String userNumber = item.substring(splitPosition);
