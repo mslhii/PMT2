@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity {
 //                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
 //                    int splitPosition = item.indexOf("\n");
 //                    String userNumber = item.substring(splitPosition);
-//                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userNumber + "!", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), "Sending PMT to " + userNumber + "!", Toast.LENGTH_SHORT).show();
 //                    MainActivity.this.sendSMS(userNumber);
                 }
             });
