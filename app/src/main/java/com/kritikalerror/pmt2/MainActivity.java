@@ -102,12 +102,12 @@ public class MainActivity extends ActionBarActivity {
                     alertDialog.show();
 
 
-//                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
-//                    int splitPosition = item.indexOf("\n");
-//                    String userNumber = item.substring(splitPosition);
-//                    String userName = item.substring(0, (splitPosition - 1));
-//                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
-//                    MainActivity.this.sendSMS(userNumber);
+                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
+                    int splitPosition = item.indexOf("\n");
+                    String userNumber = item.substring(splitPosition);
+                    String userName = item.substring(0, (splitPosition - 1));
+                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                    MainActivity.this.sendSMS(userNumber);
                 }
             });
         }
