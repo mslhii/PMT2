@@ -98,8 +98,8 @@ public class MainActivity extends ActionBarActivity {
                             });
 
                     // Test only, do not use in production!
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    //AlertDialog alertDialog = alertDialogBuilder.create();
+                    //alertDialog.show();
 
 
                     String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
