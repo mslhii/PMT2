@@ -73,9 +73,9 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view,
                                         int position, long id) {
-//                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-//                    final int pos = position;
-//
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    final int pos = position;
+
 //                    alertDialogBuilder.setTitle("Are you sure? BETA, to be removed from production");
 //                    alertDialogBuilder
 //                            .setMessage("Send this SMS?")
