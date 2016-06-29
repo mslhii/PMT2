@@ -73,34 +73,7 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onItemClick(AdapterView<?> listView, View view,
                                         int position, long id) {
-                    //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                     final int pos = position;
-
-//                    alertDialogBuilder.setTitle("Are you sure? BETA, to be removed from production");
-//                    alertDialogBuilder
-//                            .setMessage("Send this SMS?")
-//                            .setCancelable(false)
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
-//                                    int splitPosition = item.indexOf("\n");
-//                                    String userNumber = item.substring(splitPosition);
-//                                    String userName = item.substring(0, (splitPosition - 1));
-//                                    Toast.makeText(getApplicationContext(), "Sent PMT to " +
-//                                            userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
-//                                    MainActivity.this.sendSMS(userNumber);
-//                                }
-//                            })
-//                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                public void onClick(DialogInterface dialog, int id) {
-//                                    dialog.cancel();
-//                                }
-//                            });
-
-                    // Test only, do not use in production!
-                    //AlertDialog alertDialog = alertDialogBuilder.create();
-                    //alertDialog.show();
-
 
                     String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
                     int splitPosition = item.indexOf("\n");
