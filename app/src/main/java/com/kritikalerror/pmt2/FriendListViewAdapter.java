@@ -54,7 +54,6 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
     private Context context;
     private int mLength;
 
-    //CHANGE
     private static final String ADMOB_PUBLISHER_ID = "ca-app-pub-6309606968767978~3689761645";
 
     public FriendListViewAdapter(Context ctx, ArrayList<String> parseUsers) {
