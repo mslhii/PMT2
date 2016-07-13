@@ -75,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
                                         int position, long id) {
                     final int pos = position;
 
+                    // Need to prevent NullPointerException for ads here
                     String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
                     int splitPosition = item.indexOf("\n");
                     String userNumber = item.substring(splitPosition);
