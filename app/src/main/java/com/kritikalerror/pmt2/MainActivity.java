@@ -76,12 +76,14 @@ public class MainActivity extends ActionBarActivity {
                     final int pos = position;
 
                     // Need to prevent NullPointerException for ads here
-                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
-                    int splitPosition = item.indexOf("\n");
-                    String userNumber = item.substring(splitPosition);
-                    String userName = item.substring(0, (splitPosition - 1));
-                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
-                    MainActivity.this.sendSMS(userNumber);
+                    if(pos > 0) {
+                        String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
+                        int splitPosition = item.indexOf("\n");
+                        String userNumber = item.substring(splitPosition);
+                        String userName = item.substring(0, (splitPosition - 1));
+                        Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                        MainActivity.this.sendSMS(userNumber);
+                    }
                 }
             });
         }
