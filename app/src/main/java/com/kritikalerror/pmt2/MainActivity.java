@@ -110,9 +110,9 @@ public class MainActivity extends ActionBarActivity {
                         });
                 return false;
             }
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[] {Manifest.permission.SEND_SMS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[] {Manifest.permission.SEND_SMS},
+//                    REQUEST_CODE_ASK_PERMISSIONS);
             return false;
         }
 
@@ -132,9 +132,9 @@ public class MainActivity extends ActionBarActivity {
                         });
                 return false;
             }
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[] {Manifest.permission.READ_CONTACTS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[] {Manifest.permission.READ_CONTACTS},
+//                    REQUEST_CODE_ASK_PERMISSIONS);
             return false;
         }
         this.fetchContacts();
