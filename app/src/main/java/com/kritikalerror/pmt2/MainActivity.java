@@ -108,12 +108,19 @@ public class MainActivity extends ActionBarActivity {
                                         REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
+            }
+            else {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+            }
+
+            // Do another check here
+            int hasSMSPermissionAgain = ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.SEND_SMS);
+            if (hasSMSPermissionAgain != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[] {Manifest.permission.SEND_SMS},
-//                    REQUEST_CODE_ASK_PERMISSIONS);
-            return false;
         }
 
         int hasReadContactsPermission = ContextCompat.checkSelfPermission(MainActivity.this,
@@ -130,12 +137,18 @@ public class MainActivity extends ActionBarActivity {
                                         REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
+            }
+            else {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+            }
+            // Do another check here
+            int hasReadContactsPermissionAgain = ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS);
+            if (hasReadContactsPermissionAgain != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[] {Manifest.permission.READ_CONTACTS},
-//                    REQUEST_CODE_ASK_PERMISSIONS);
-            return false;
         }
         this.fetchContacts();
         return true;
