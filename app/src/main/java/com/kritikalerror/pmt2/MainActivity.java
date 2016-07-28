@@ -93,6 +93,7 @@ public class MainActivity extends ActionBarActivity {
      * fetchContactsWrapper ensures Marshmallow support
      * @return
      */
+    //TODO: please fix!
     private boolean fetchContactsWrapper() {
         int hasSMSPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.SEND_SMS);
