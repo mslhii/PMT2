@@ -91,6 +91,7 @@ public class MainActivity extends ActionBarActivity {
 
     /**
      * fetchContactsWrapper ensures Marshmallow support
+     * This goes in version 1.0.2
      * @return
      */
     //TODO: please fix!
