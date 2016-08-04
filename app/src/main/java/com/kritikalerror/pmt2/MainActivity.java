@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
      * This goes in version 1.0.2
      * @return
      */
-    //TODO: please fix!
+    //TODO: please fix! split methods?
     private boolean fetchContactsWrapper() {
         int hasSMSPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.SEND_SMS);
