@@ -99,6 +99,13 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
         return 0;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
