@@ -100,7 +100,7 @@ public class FriendListViewAdapter extends BaseAdapter implements SectionIndexer
     }
 
     /**
-     *
+     * Generate view of the friend list users will see
      * @param position
      * @param convertView
      * @param parent
