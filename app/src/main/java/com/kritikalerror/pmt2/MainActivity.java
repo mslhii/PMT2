@@ -87,6 +87,7 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+        this.fetchSMSWrapper();
     }
 
     /**
@@ -96,6 +97,38 @@ public class MainActivity extends ActionBarActivity {
      */
     //TODO: please fix! split methods?
     private boolean fetchContactsWrapper() {
+        int hasReadContactsPermission = ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_CONTACTS);
+        if (hasReadContactsPermission != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS)) {
+                showOKAlertMessage("You need to allow access to Contacts",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{Manifest.permission.READ_CONTACTS},
+                                        REQUEST_CODE_ASK_PERMISSIONS);
+                            }
+                        });
+            }
+            else {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        REQUEST_CODE_ASK_PERMISSIONS);
+            }
+            // Do another check here
+            int hasReadContactsPermissionAgain = ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.READ_CONTACTS);
+            if (hasReadContactsPermissionAgain != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        this.fetchContacts();
+        return true;
+    }
+
+    private boolean fetchSMSWrapper() {
         int hasSMSPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.SEND_SMS);
         if (hasSMSPermission != PackageManager.PERMISSION_GRANTED) {
@@ -125,34 +158,6 @@ public class MainActivity extends ActionBarActivity {
             }
         }
 
-        int hasReadContactsPermission = ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.READ_CONTACTS);
-        if (hasReadContactsPermission != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.READ_CONTACTS)) {
-                showOKAlertMessage("You need to allow access to Contacts",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{Manifest.permission.READ_CONTACTS},
-                                        REQUEST_CODE_ASK_PERMISSIONS);
-                            }
-                        });
-            }
-            else {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.READ_CONTACTS},
-                        REQUEST_CODE_ASK_PERMISSIONS);
-            }
-            // Do another check here
-            int hasReadContactsPermissionAgain = ContextCompat.checkSelfPermission(MainActivity.this,
-                    Manifest.permission.READ_CONTACTS);
-            if (hasReadContactsPermissionAgain != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        this.fetchContacts();
         return true;
     }
 
