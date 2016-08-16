@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
         Log.i("TAG", "Show camera button pressed. Checking permission.");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Camera permission has not been granted.
+            // SMS permission has not been granted.
             this.requestSMSPermissions();
         } else {
 
