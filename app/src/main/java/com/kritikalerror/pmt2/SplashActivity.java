@@ -21,6 +21,8 @@ public class SplashActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // Make sure user goes through this before switching activities
         if (initializeWrapper()) {
             Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
             SplashActivity.this.startActivity(mainIntent);
@@ -30,36 +32,36 @@ public class SplashActivity extends ActionBarActivity {
 
     private boolean initializeWrapper() {
         int hasCameraPermission = ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.CAMERA);
+                Manifest.permission.SEND_SMS);
         if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
-                    Manifest.permission.CAMERA)) {
-                showOKAlertMessage("You need to allow app to use the camera for the app to function properly",
+                    Manifest.permission.SEND_SMS)) {
+                showOKAlertMessage("You need to allow app to send SMS for the app to function properly",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(SplashActivity.this,
-                                        new String[]{Manifest.permission.CAMERA},
+                                        new String[]{Manifest.permission.SEND_SMS},
                                         REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
             }
             ActivityCompat.requestPermissions(SplashActivity.this,
-                    new String[] {Manifest.permission.CAMERA},
+                    new String[] {Manifest.permission.SEND_SMS},
                     REQUEST_CODE_ASK_PERMISSIONS);
         }
 
         int hasWriteStoragePermission = ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                Manifest.permission.READ_CONTACTS);
         if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Manifest.permission.READ_CONTACTS)) {
                 showOKAlertMessage("You need to allow access to external storage to save photos for the app to function properly",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(SplashActivity.this,
-                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        new String[]{Manifest.permission.READ_CONTACTS},
                                         REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
