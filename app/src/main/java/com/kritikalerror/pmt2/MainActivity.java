@@ -94,6 +94,8 @@ public class MainActivity extends ActionBarActivity {
                                         int position, long id) {
                     final int pos = position;
 
+                    Log.v("TAG", "Position clicked: " + String.valueOf(pos));
+
                     // Need to prevent NullPointerException for ads here
                     if (pos > 0) {
                         String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
