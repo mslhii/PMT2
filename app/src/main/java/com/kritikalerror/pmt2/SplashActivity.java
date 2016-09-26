@@ -26,8 +26,8 @@ public class SplashActivity extends ActionBarActivity {
         if (initializeWrapper()) {
             Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
             SplashActivity.this.startActivity(mainIntent);
+            //finish();
         }
-        finish();
     }
 
     private boolean initializeWrapper() {
