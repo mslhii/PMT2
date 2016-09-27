@@ -193,7 +193,7 @@ public class MainActivity extends ActionBarActivity {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, this.smsMessage, null, null);
-            Toast.makeText(getApplicationContext(), "Sent PMT", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Sent PMT", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "Can't send a PMT because " + e.getMessage(),
