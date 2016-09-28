@@ -61,8 +61,8 @@ public class MainActivity extends ActionBarActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
-        this.fetchContactsWrapper();
-        this.fetchSMSWrapper();
+        //this.fetchContactsWrapper();
+        //this.fetchSMSWrapper();
     }
 
     /**
