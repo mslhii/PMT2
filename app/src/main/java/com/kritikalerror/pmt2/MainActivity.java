@@ -41,25 +41,26 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         // User warning
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alertDialogBuilder.setTitle("WARNING!");
-        alertDialogBuilder
-                .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click \"Get me outta here!\"")
-                .setCancelable(false)
-                .setPositiveButton("Proceed!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton("Get me outta here!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        finish();
-                    }
-                });
+        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        //alertDialogBuilder.setTitle("WARNING!");
+        //alertDialogBuilder
+        //        .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click \"Get me outta here!\"")
+        //        .setCancelable(false)
+        //        .setPositiveButton("Proceed!", new DialogInterface.OnClickListener() {
+        //            public void onClick(DialogInterface dialog, int id) {
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        //                dialog.cancel();
+        //            }
+        //        })
+        //        .setNegativeButton("Get me outta here!", new DialogInterface.OnClickListener() {
+        //            public void onClick(DialogInterface dialog, int id) {
+        //                dialog.cancel();
+        //                finish();
+        //            }
+        //        });
+
+        //AlertDialog alertDialog = alertDialogBuilder.create();
+        //alertDialog.show();
 
         //this.fetchContactsWrapper();
         //this.fetchSMSWrapper();
