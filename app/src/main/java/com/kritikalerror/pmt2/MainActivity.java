@@ -39,28 +39,6 @@ public class MainActivity extends ActionBarActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-
-        // User warning
-        //AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        //alertDialogBuilder.setTitle("WARNING!");
-        //alertDialogBuilder
-        //        .setMessage("This app sends SMS which costs money. If you do not want to use this app, please click \"Get me outta here!\"")
-        //        .setCancelable(false)
-        //        .setPositiveButton("Proceed!", new DialogInterface.OnClickListener() {
-        //            public void onClick(DialogInterface dialog, int id) {
-
-        //                dialog.cancel();
-        //            }
-        //        })
-        //        .setNegativeButton("Get me outta here!", new DialogInterface.OnClickListener() {
-        //            public void onClick(DialogInterface dialog, int id) {
-        //                dialog.cancel();
-        //                finish();
-        //            }
-        //        });
-
-        //AlertDialog alertDialog = alertDialogBuilder.create();
-        //alertDialog.show();
     }
 
     /**
