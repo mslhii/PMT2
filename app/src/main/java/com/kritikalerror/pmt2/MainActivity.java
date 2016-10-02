@@ -114,19 +114,19 @@ public class MainActivity extends ActionBarActivity {
         // END_INCLUDE(contacts_permission_request)
     }
 
-    private void fetchSMSWrapper() {
-        Log.i("TAG", "Show camera button pressed. Checking permission.");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            // SMS permission has not been granted.
-            this.requestSMSPermissions();
-        } else {
-
-            // Camera permissions is already available, show the camera preview.
-            Log.i("TAG", "Fetching contacts.");
-
-        }
-    }
+//    private void fetchSMSWrapper() {
+//        Log.i("TAG", "Show camera button pressed. Checking permission.");
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            // SMS permission has not been granted.
+//            this.requestSMSPermissions();
+//        } else {
+//
+//            // Camera permissions is already available, show the camera preview.
+//            Log.i("TAG", "Fetching contacts.");
+//
+//        }
+//    }
 
     private void requestSMSPermissions() {
         // BEGIN_INCLUDE(contacts_permission_request)
