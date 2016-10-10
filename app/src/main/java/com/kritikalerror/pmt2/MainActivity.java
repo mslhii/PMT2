@@ -39,6 +39,9 @@ public class MainActivity extends ActionBarActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        this.fetchContactsWrapper();
+        this.fetchSMSWrapper();
     }
 
     /**
@@ -114,47 +117,47 @@ public class MainActivity extends ActionBarActivity {
         // END_INCLUDE(contacts_permission_request)
     }
 
-//    private void fetchSMSWrapper() {
-//        Log.i("TAG", "Show camera button pressed. Checking permission.");
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            // SMS permission has not been granted.
-//            this.requestSMSPermissions();
-//        } else {
-//
-//            // Camera permissions is already available, show the camera preview.
-//            Log.i("TAG", "Fetching contacts.");
-//
-//        }
-//    }
-
-    private void requestSMSPermissions() {
-        // BEGIN_INCLUDE(contacts_permission_request)
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.SEND_SMS)) {
-
-            // Provide an additional rationale to the user if the permission was not granted
-            // and the user would benefit from additional context for the use of the permission.
-            // For example, if the request has been denied previously.
-            Log.i("TAG",
-                    "Displaying contacts permission rationale to provide additional context.");
-
-            // Display a SnackBar with an explanation and a button to trigger the request.
-            showOKAlertMessage("You need to allow app to send SMS",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_CODE_ASK_PERMISSIONS);
-                        }
-                    });
+    private void fetchSMSWrapper() {
+        Log.i("TAG", "Show camera button pressed. Checking permission.");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // SMS permission has not been granted.
+            //this.requestSMSPermissions();
         } else {
-            // Contact permissions have not been granted yet. Request them directly.
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.SEND_SMS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
+
+            // Camera permissions is already available, show the camera preview.
+            Log.i("TAG", "Fetching contacts.");
+
         }
-        // END_INCLUDE(contacts_permission_request)
     }
+
+//    private void requestSMSPermissions() {
+//        // BEGIN_INCLUDE(contacts_permission_request)
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+//                Manifest.permission.SEND_SMS)) {
+//
+//            // Provide an additional rationale to the user if the permission was not granted
+//            // and the user would benefit from additional context for the use of the permission.
+//            // For example, if the request has been denied previously.
+//            Log.i("TAG",
+//                    "Displaying contacts permission rationale to provide additional context.");
+//
+//            // Display a SnackBar with an explanation and a button to trigger the request.
+//            showOKAlertMessage("You need to allow app to send SMS",
+//                    new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_CODE_ASK_PERMISSIONS);
+//                        }
+//                    });
+//        } else {
+//            // Contact permissions have not been granted yet. Request them directly.
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[]{Manifest.permission.SEND_SMS},
+//                    REQUEST_CODE_ASK_PERMISSIONS);
+//        }
+//        // END_INCLUDE(contacts_permission_request)
+//    }
 
     private void showOKAlertMessage(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(MainActivity.this)
