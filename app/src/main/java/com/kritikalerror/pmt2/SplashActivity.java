@@ -8,6 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,8 @@ import android.widget.Button;
 public class SplashActivity extends ActionBarActivity {
 
     private static final int REQUEST_CAMERA = 0;
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    final private int REQUEST_CODE_ASK_SMS_PERMISSIONS = 123;
+    final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,9 @@ public class SplashActivity extends ActionBarActivity {
         //    finish();
         //}
 
-        initializeWrapper();
+        //initializeWrapper();
+        requestContactsPermissions();
+        requestSMSPermissions();
     }
 
     private boolean initializeWrapper() {
@@ -65,13 +69,13 @@ public class SplashActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(SplashActivity.this,
                                         new String[]{Manifest.permission.SEND_SMS},
-                                        REQUEST_CODE_ASK_PERMISSIONS);
+                                        REQUEST_CODE_ASK_SMS_PERMISSIONS);
                             }
                         });
             }
             ActivityCompat.requestPermissions(SplashActivity.this,
                     new String[] {Manifest.permission.SEND_SMS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
+                    REQUEST_CODE_ASK_SMS_PERMISSIONS);
         }
 
         int hasWriteStoragePermission = ContextCompat.checkSelfPermission(SplashActivity.this,
@@ -79,19 +83,19 @@ public class SplashActivity extends ActionBarActivity {
         if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
             if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
                     Manifest.permission.READ_CONTACTS)) {
-                showOKAlertMessage("You need to allow access to external storage to save photos for the app to function properly",
+                showOKAlertMessage("You need to allow access to contacts for the app to function properly",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(SplashActivity.this,
                                         new String[]{Manifest.permission.READ_CONTACTS},
-                                        REQUEST_CODE_ASK_PERMISSIONS);
+                                        REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
                             }
                         });
             }
             ActivityCompat.requestPermissions(SplashActivity.this,
                     new String[] {Manifest.permission.READ_CONTACTS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
+                    REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
         }
         return true;
     }
@@ -103,6 +107,64 @@ public class SplashActivity extends ActionBarActivity {
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
+    }
+
+    private void requestContactsPermissions() {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_CONTACTS)) {
+
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example, if the request has been denied previously.
+            Log.i("TAG",
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            // Display a SnackBar with an explanation and a button to trigger the request.
+            showOKAlertMessage("You need to allow app to show contacts",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.READ_CONTACTS},
+                                    REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+                        }
+                    });
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+        }
+        // END_INCLUDE(contacts_permission_request)
+    }
+
+    private void requestSMSPermissions() {
+        // BEGIN_INCLUDE(contacts_permission_request)
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.SEND_SMS)) {
+
+            // Provide an additional rationale to the user if the permission was not granted
+            // and the user would benefit from additional context for the use of the permission.
+            // For example, if the request has been denied previously.
+            Log.i("TAG",
+                    "Displaying contacts permission rationale to provide additional context.");
+
+            // Display a SnackBar with an explanation and a button to trigger the request.
+            showOKAlertMessage("You need to allow app to send SMS",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.SEND_SMS},
+                                    REQUEST_CODE_ASK_SMS_PERMISSIONS);
+                        }
+                    });
+        } else {
+            // Contact permissions have not been granted yet. Request them directly.
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[]{Manifest.permission.SEND_SMS},
+                    REQUEST_CODE_ASK_SMS_PERMISSIONS);
+        }
+        // END_INCLUDE(contacts_permission_request)
     }
 
     @Override

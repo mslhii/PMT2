@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         this.fetchContactsWrapper();
-        this.fetchSMSWrapper();
+        //this.fetchSMSWrapper();
     }
 
     /**
@@ -51,42 +51,70 @@ public class MainActivity extends ActionBarActivity {
      */
     //TODO: please fix! split methods?
     private void fetchContactsWrapper() {
-        Log.i("TAG", "Show camera button pressed. Checking permission.");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Camera permission has not been granted.
-            this.requestContactsPermissions();
-        } else {
+        Log.i("TAG", "Fetching contacts.");
+        this.fetchContacts();
+        listView = (ListView) findViewById(R.id.listView1);
+        mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
+        listView.setAdapter(mFriendAdapter);
+        listView.setFastScrollEnabled(true);
+        listView.setFastScrollAlwaysVisible(true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            // Camera permissions is already available, show the camera preview.
-            Log.i("TAG", "Fetching contacts.");
-            this.fetchContacts();
-            listView = (ListView) findViewById(R.id.listView1);
-            mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
-            listView.setAdapter(mFriendAdapter);
-            listView.setFastScrollEnabled(true);
-            listView.setFastScrollAlwaysVisible(true);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view,
+                                    int position, long id) {
+                final int pos = position;
 
-                @Override
-                public void onItemClick(AdapterView<?> listView, View view,
-                                        int position, long id) {
-                    final int pos = position;
+                Log.v("TAG", "Position clicked: " + String.valueOf(pos));
 
-                    Log.v("TAG", "Position clicked: " + String.valueOf(pos));
-
-                    // Need to prevent NullPointerException for ads here
-                    if (pos > 0) {
-                        String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
-                        int splitPosition = item.indexOf("\n");
-                        String userNumber = item.substring(splitPosition);
-                        String userName = item.substring(0, (splitPosition - 1));
-                        Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
-                        MainActivity.this.sendSMS(userNumber);
-                    }
+                // Need to prevent NullPointerException for ads here
+                if (pos > 0) {
+                    String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
+                    int splitPosition = item.indexOf("\n");
+                    String userNumber = item.substring(splitPosition);
+                    String userName = item.substring(0, (splitPosition - 1));
+                    Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
+                    MainActivity.this.sendSMS(userNumber);
                 }
-            });
-        }
+            }
+        });
+
+//        Log.i("TAG", "Show camera button pressed. Checking permission.");
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            // Camera permission has not been granted.
+//            this.requestContactsPermissions();
+//        } else {
+//
+//            // Camera permissions is already available, show the camera preview.
+//            Log.i("TAG", "Fetching contacts.");
+//            this.fetchContacts();
+//            listView = (ListView) findViewById(R.id.listView1);
+//            mFriendAdapter = new FriendListViewAdapter(getBaseContext(), this.dbList);
+//            listView.setAdapter(mFriendAdapter);
+//            listView.setFastScrollEnabled(true);
+//            listView.setFastScrollAlwaysVisible(true);
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//                @Override
+//                public void onItemClick(AdapterView<?> listView, View view,
+//                                        int position, long id) {
+//                    final int pos = position;
+//
+//                    Log.v("TAG", "Position clicked: " + String.valueOf(pos));
+//
+//                    // Need to prevent NullPointerException for ads here
+//                    if (pos > 0) {
+//                        String item = (String) MainActivity.this.listView.getItemAtPosition(pos);
+//                        int splitPosition = item.indexOf("\n");
+//                        String userNumber = item.substring(splitPosition);
+//                        String userName = item.substring(0, (splitPosition - 1));
+//                        Toast.makeText(getApplicationContext(), "Sent PMT to " + userName + ": " + userNumber + "!", Toast.LENGTH_SHORT).show();
+//                        MainActivity.this.sendSMS(userNumber);
+//                    }
+//                }
+//            });
+//        }
     }
 
     private void requestContactsPermissions() {
