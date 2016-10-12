@@ -20,6 +20,7 @@ public class SplashActivity extends ActionBarActivity {
     private static final int REQUEST_CAMERA = 0;
     final private int REQUEST_CODE_ASK_SMS_PERMISSIONS = 123;
     final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 121;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,49 @@ public class SplashActivity extends ActionBarActivity {
     }
 
     private boolean initializeWrapper() {
+        int hasCameraPermission = ContextCompat.checkSelfPermission(SplashActivity.this,
+                Manifest.permission.SEND_SMS);
+        if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
+                    Manifest.permission.SEND_SMS)) {
+                showOKAlertMessage("You need to allow app to send SMS for the app to function properly",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(SplashActivity.this,
+                                        new String[]{Manifest.permission.SEND_SMS},
+                                        REQUEST_CODE_ASK_SMS_PERMISSIONS);
+                            }
+                        });
+            }
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[] {Manifest.permission.SEND_SMS},
+                    REQUEST_CODE_ASK_SMS_PERMISSIONS);
+        }
+
+        int hasWriteStoragePermission = ContextCompat.checkSelfPermission(SplashActivity.this,
+                Manifest.permission.READ_CONTACTS);
+        if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
+                    Manifest.permission.READ_CONTACTS)) {
+                showOKAlertMessage("You need to allow access to contacts for the app to function properly",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(SplashActivity.this,
+                                        new String[]{Manifest.permission.READ_CONTACTS},
+                                        REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+                            }
+                        });
+            }
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[] {Manifest.permission.READ_CONTACTS},
+                    REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+        }
+        return true;
+    }
+
+    private boolean initializeWrapperDeprecated() {
         int hasCameraPermission = ContextCompat.checkSelfPermission(SplashActivity.this,
                 Manifest.permission.SEND_SMS);
         if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
