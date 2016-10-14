@@ -1,7 +1,7 @@
 # PMT2
 The successor to the original PMT app. This time it doesn't Parse but SMS.
   
-Still WIP, 1.0.2 update coming soon. With
+Still WIP, 1.0.2 update coming soon. With app
 
 Delayed update due to work. Coming soon
 
