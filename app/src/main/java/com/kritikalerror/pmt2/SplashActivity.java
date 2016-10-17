@@ -70,13 +70,13 @@ public class SplashActivity extends ActionBarActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(SplashActivity.this,
                                         new String[]{Manifest.permission.SEND_SMS},
-                                        REQUEST_CODE_ASK_SMS_PERMISSIONS);
+                                        REQUEST_CODE_ASK_PERMISSIONS);
                             }
                         });
             }
             ActivityCompat.requestPermissions(SplashActivity.this,
                     new String[] {Manifest.permission.SEND_SMS},
-                    REQUEST_CODE_ASK_SMS_PERMISSIONS);
+                    REQUEST_CODE_ASK_PERMISSIONS);
         }
 
         int hasWriteStoragePermission = ContextCompat.checkSelfPermission(SplashActivity.this,
