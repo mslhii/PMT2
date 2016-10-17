@@ -14,13 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SplashActivity extends ActionBarActivity {
 
     private static final int REQUEST_CAMERA = 0;
     final private int REQUEST_CODE_ASK_SMS_PERMISSIONS = 123;
     final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
-    final private int REQUEST_CODE_ASK_PERMISSIONS = 121;
+    final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,50 +56,49 @@ public class SplashActivity extends ActionBarActivity {
         //    finish();
         //}
 
-        //initializeWrapper();
-        requestContactsPermissions();
-        requestSMSPermissions();
+        initializeWrapper();
+        //requestContactsPermissions();
+        //requestSMSPermissions();
     }
 
     private boolean initializeWrapper() {
-        int hasCameraPermission = ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.SEND_SMS);
-        if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
-                    Manifest.permission.SEND_SMS)) {
-                showOKAlertMessage("You need to allow app to send SMS for the app to function properly",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(SplashActivity.this,
-                                        new String[]{Manifest.permission.SEND_SMS},
-                                        REQUEST_CODE_ASK_PERMISSIONS);
-                            }
-                        });
-            }
-            ActivityCompat.requestPermissions(SplashActivity.this,
-                    new String[] {Manifest.permission.SEND_SMS},
-                    REQUEST_CODE_ASK_PERMISSIONS);
-        }
+        List<String> permissionsNeeded = new ArrayList<String>();
 
-        int hasWriteStoragePermission = ContextCompat.checkSelfPermission(SplashActivity.this,
-                Manifest.permission.READ_CONTACTS);
-        if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
-            if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this,
-                    Manifest.permission.READ_CONTACTS)) {
-                showOKAlertMessage("You need to allow access to contacts for the app to function properly",
+        final List<String> permissionsList = new ArrayList<String>();
+        if (!addPermission(permissionsList, Manifest.permission.READ_CONTACTS))
+            permissionsNeeded.add("Read Contacts");
+        if (!addPermission(permissionsList, Manifest.permission.SEND_SMS))
+            permissionsNeeded.add("Write Contacts");
+
+        if (permissionsList.size() > 0) {
+            if (permissionsNeeded.size() > 0) {
+                // Need Rationale
+                String message = "You need to grant access to " + permissionsNeeded.get(0);
+                for (int i = 1; i < permissionsNeeded.size(); i++)
+                    message = message + ", " + permissionsNeeded.get(i);
+                showOKAlertMessage(message,
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(SplashActivity.this,
-                                        new String[]{Manifest.permission.READ_CONTACTS},
-                                        REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+                                ActivityCompat.requestPermissions(SplashActivity.this, permissionsList.toArray(new String[permissionsList.size()]),
+                                        REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
                             }
                         });
+                return true;
             }
-            ActivityCompat.requestPermissions(SplashActivity.this,
-                    new String[] {Manifest.permission.READ_CONTACTS},
-                    REQUEST_CODE_ASK_CONTACT_PERMISSIONS);
+            ActivityCompat.requestPermissions(SplashActivity.this, permissionsList.toArray(new String[permissionsList.size()]),
+                    REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            return true;
+        }
+        return true;
+    }
+
+    private boolean addPermission(List<String> permissionsList, String permission) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+            permissionsList.add(permission);
+            // Check for Rationale Option
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(SplashActivity.this, permission))
+                return false;
         }
         return true;
     }
