@@ -57,8 +57,6 @@ public class SplashActivity extends ActionBarActivity {
         //}
 
         initializeWrapper();
-        //requestContactsPermissions();
-        //requestSMSPermissions();
     }
 
     private boolean initializeWrapper() {
