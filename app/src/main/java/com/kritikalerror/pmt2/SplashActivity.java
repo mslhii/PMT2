@@ -48,14 +48,6 @@ public class SplashActivity extends ActionBarActivity {
             }
         });
 
-
-        // Make sure user goes through this before switching activities
-        //if (initializeWrapper()) {
-        //    Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
-        //    SplashActivity.this.startActivity(mainIntent);
-        //    finish();
-        //}
-
         initializeWrapper();
     }
 
