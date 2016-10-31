@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SplashActivity extends ActionBarActivity {
 
-    private static final int REQUEST_CAMERA = 0;
+    //private static final int REQUEST_CAMERA = 0;
     final private int REQUEST_CODE_ASK_SMS_PERMISSIONS = 123;
     final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
