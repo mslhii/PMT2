@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SplashActivity extends ActionBarActivity {
 
-    final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
+    //final private int REQUEST_CODE_ASK_CONTACT_PERMISSIONS = 122;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     @Override
