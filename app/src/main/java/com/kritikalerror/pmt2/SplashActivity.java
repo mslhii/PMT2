@@ -48,6 +48,7 @@ public class SplashActivity extends ActionBarActivity {
         initializeWrapper();
     }
 
+    //todo: check
     private boolean initializeWrapper() {
         List<String> permissionsNeeded = new ArrayList<String>();
 
