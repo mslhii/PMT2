@@ -45,7 +45,7 @@ public class SplashActivity extends ActionBarActivity {
             }
         });
 
-        initializeWrapper();
+        //initializeWrapper();
     }
 
     private boolean initializeWrapper() {
